@@ -1,0 +1,16 @@
+.gallery-wrapper {
+  position: relative;
+  margin-top: 2rem;
+}
+
+.island-badge {
+  display: inline-block;
+  background: #e94560;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
