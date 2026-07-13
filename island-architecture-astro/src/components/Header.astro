@@ -1,0 +1,73 @@
+---
+export interface Props {
+  title?: string;
+}
+
+const { title = "Mateus Lopes" } = Astro.props;
+---
+
+<header>
+  <div class="container">
+    <a href="/" class="logo">
+      <img src="https://avatars.githubusercontent.com/u/43526801?v=4" alt="Avatar" class="avatar" />
+      <span>{title}</span>
+    </a>
+    <nav>
+      <a href="https://github.com/mateuslopes92" target="_blank">GitHub</a>
+      <a href="https://github.com/mateuslopes92?tab=repositories" target="_blank">Repos</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  header {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.25rem;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #e94560;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  nav a {
+    color: #a0a0b8;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  nav a:hover {
+    color: #e94560;
+  }
+</style>

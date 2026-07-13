@@ -1,0 +1,276 @@
+---
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import RepoGallery from "../components/RepoGallery";
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+  <Header />
+
+  <Hero />
+
+  <section class="island-demo">
+    <div class="container">
+      <div class="section-header">
+        <h2>Island Architecture Demo</h2>
+        <p class="section-desc">
+          This gallery is a <strong>React island</strong> &mdash; its JavaScript
+          only loads when the component is visible in the viewport
+          (<code>client:visible</code>). Scroll down to see it hydrate.
+        </p>
+      </div>
+
+      <div class="csr-vs-island">
+        <div class="explanation-card traditional">
+          <h3>Traditional CSR</h3>
+          <p>
+            In a traditional SPA, <em>all</em> JavaScript for the entire page is
+            downloaded and executed before anything is interactive &mdash; even
+            for static elements like the header and hero above.
+          </p>
+          <ul>
+            <li>Header JS loaded &mdash; wasted (it's static)</li>
+            <li>Hero JS loaded &mdash; wasted (it's static)</li>
+            <li>Gallery JS loaded &mdash; necessary</li>
+            <li><strong>100% JS payload upfront</strong></li>
+          </ul>
+        </div>
+
+        <div class="explanation-card island">
+          <h3>Island Architecture</h3>
+          <p>
+            With Astro's island architecture, only interactive components ship
+            JavaScript. Static HTML is served immediately, and JS hydrates
+            islands on demand.
+          </p>
+          <ul>
+            <li>Header: <strong>zero JS</strong> (pure HTML + CSS)</li>
+            <li>Hero: <strong>zero JS</strong> (pure HTML + CSS)</li>
+            <li>Gallery: JS loads <strong>only when visible</strong></li>
+            <li><strong>Minimal JS payload</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gallery-wrapper">
+        <div class="island-badge">Interactive Island (client:visible)</div>
+        <RepoGallery client:visible />
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>
+        Built with <a href="https://astro.build" target="_blank">Astro</a> to
+        demonstrate Island Architecture vs Traditional CSR.
+      </p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .island-demo {
+    padding: 4rem 0;
+    background: #f8f9fa;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+    color: #1a1a2e;
+    margin: 0 0 0.75rem;
+  }
+
+  .section-desc {
+    color: #666;
+    font-size: 1.05rem;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .section-desc code {
+    background: #e8e8e8;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+
+  .csr-vs-island {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .explanation-card {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .explanation-card h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1.2rem;
+  }
+
+  .explanation-card p {
+    font-size: 0.925rem;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  .explanation-card ul {
+    padding-left: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: #555;
+  }
+
+  .traditional {
+    background: #ffe8e8;
+    border: 1px solid #f5c6c6;
+  }
+
+  .traditional h3 {
+    color: #c0392b;
+  }
+
+  .island {
+    background: #e8f5e9;
+    border: 1px solid #c6e6c9;
+  }
+
+  .island h3 {
+    color: #27ae60;
+  }
+
+  .gallery-wrapper {
+    position: relative;
+    margin-top: 2rem;
+  }
+
+  .island-badge {
+    display: inline-block;
+    background: #e94560;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+  }
+
+  footer {
+    background: #1a1a2e;
+    color: #a0a0b8;
+    text-align: center;
+    padding: 2rem 0;
+    font-size: 0.9rem;
+  }
+
+  footer a {
+    color: #e94560;
+    text-decoration: none;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<style is:global>
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    display: block;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+    color: #1a1a2e;
+    font-family: monospace;
+  }
+
+  .card p {
+    margin: 0 0 1rem;
+    font-size: 0.875rem;
+    color: #666;
+    line-height: 1.4;
+  }
+
+  .card-footer {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #888;
+    align-items: center;
+  }
+
+  .language {
+    background: #e8e8e8;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #555;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 3rem;
+    color: #888;
+  }
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e0e0e0;
+    border-top-color: #e94560;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 1rem;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .error {
+    text-align: center;
+    padding: 2rem;
+    color: #c0392b;
+    background: #ffe8e8;
+    border-radius: 8px;
+  }
+</style>
